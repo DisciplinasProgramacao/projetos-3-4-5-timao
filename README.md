@@ -8,6 +8,8 @@ combustível diferentes, a autonomia diária varia. Portanto, as rotas só podem
 para um veículo dentro do seu limite diário. O projeto será desenvolvido na linguagem Java a 
 partir da elaboração do diagrama de classes.
 
+https://trello.com/b/MYmsiDQS/projeto-3-lpm-timao
+
 ## Alunos integrantes da equipe
 
 * Olivier Rubinger
