@@ -7,8 +7,8 @@ public class Furgao extends Veiculo{
 
 
 
-    public Furgao (String placa, float kmplitro, float valordevenda){
-        super(placa, kmplitro, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE,"furgao");
+    public Furgao (String placa, float valordevenda, Combustivel combustivel){
+        super(placa, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE,"furgao", combustivel);
     }
 
     public float calcularSeguro() {

@@ -10,8 +10,8 @@ public class Caminhao extends Veiculo{
 
 
 
-    public Caminhao (String placa, float kmplitro, float valordevenda){
-        super(placa, kmplitro, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE, "caminhao");
+    public Caminhao (String placa, float valordevenda,Combustivel combustivel){
+        super(placa, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE, "caminhao",combustivel);
     }
 
     public float calcularSeguro() {

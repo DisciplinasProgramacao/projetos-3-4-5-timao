@@ -5,9 +5,10 @@ public class Carro extends Veiculo{
     private static final float ADICIONAL_SEGURO = 300;
     private static final float ALINHAMENTO = 80;
 
-    public Carro (String placa, float kmplitro, float valordevenda){
-        super(placa, kmplitro, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE, "carro");
+    public Carro (String placa, float valordevenda, Combustivel combustivel){
+        super(placa, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE, "carro",combustivel);
     }
+
 
     public float calcularSeguro() {
         float seguro = super.calcularSeguro();

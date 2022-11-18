@@ -7,12 +7,12 @@ public class Rota {
         this.data=data;
         this.distanciatotal=distanciatotal;
     }
-    public boolean checkAutonomia(Veiculo veiculo){
-        if(veiculo.getAutonomia() >= distanciatotal){
-            return true;
-        }
-        return false;
-    }
+//    public boolean checkAutonomia(Veiculo veiculo){
+//        if(veiculo.getAutonomia() >= distanciatotal){
+//            return true;
+//        }
+//        return false;
+//    }
     public float getDistanciatotal() {
         return distanciatotal;
     }
