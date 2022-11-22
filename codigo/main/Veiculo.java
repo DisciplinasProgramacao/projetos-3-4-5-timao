@@ -11,7 +11,10 @@ public abstract class Veiculo {
     private String tipoveiculo;
     private Combustivel combustivel;
     private float capacidade;
+    private float tanque;
     private float custosadicionais=0;
+
+    private float custorota;
 
 
 
@@ -19,8 +22,9 @@ public abstract class Veiculo {
         this.listarotas = new ArrayList<Rota>();
         this.placa=placa;
         this.valordevenda=valordevenda;
-        this.capacidade = capacidade;
+        this.tanque = capacidade;
         this.pctipva=pctipva;
+        this.capacidade = capacidade;
         this.pctseguro = pctseguro;
         this.tipoveiculo = tipoveiculo;
         this.combustivel = combustivel;
@@ -28,9 +32,16 @@ public abstract class Veiculo {
         this.autonomia=calcularAutonomia();
     }
 
+    public void reabastecer(){
+        float restante = capacidade - tanque;
+        custorota += restante*combustivel.getPrecoplitro();
+        this.tanque = this.capacidade;
+    }
+
+
 
     public float calcularAutonomia(){
-        return capacidade*kmplitro;
+        return tanque*kmplitro;
     }
 
     public float calcularIPVA(){
@@ -43,12 +54,14 @@ public abstract class Veiculo {
 
     public abstract float calcularCustos();
 
+
     public float adicionarCustoManutencao(float preco){
         return custosadicionais+=preco;
     }
 
 
     public void addRota(Rota rota){
+        calcularCustoRota(rota);
         listarotas.add(rota);
     }
 
@@ -59,20 +72,23 @@ public abstract class Veiculo {
         }
         return total;
     }
-    public float calcularCustoRota(){
-        float totalitros=0;
-        float custo;
-        for(Rota rota:listarotas){
-            if(calcularAutonomia()<rota.getDistanciatotal()){
-                totalitros+= (rota.getDistanciatotal()/calcularAutonomia()*capacidade)-capacidade;
+    public void calcularCustoRota(Rota rota){
+        float totalitros = rota.getDistanciatotal()/combustivel.getKmlitro();
+        while(totalitros>0){
+            if(tanque<totalitros){
+                totalitros-=tanque;
+                tanque=0;
+                reabastecer();
+            }
+            else{
+                tanque -= totalitros;
+                totalitros = 0;
             }
         }
-        custo = Math.round(totalitros)*combustivel.getPrecoplitro();
-        return custo;
     }
 
     public float calcularCustosGerais(){
-        return calcularCustoRota()+calcularCustos()+calcularIPVA()+calcularSeguro()+custosadicionais;
+        return custorota+calcularCustos()+calcularIPVA()+calcularSeguro()+custosadicionais;
     }
 
     public float getAutonomia() {
@@ -103,4 +119,14 @@ public abstract class Veiculo {
     public ArrayList<Rota> getListarotas() {
         return listarotas;
     }
+
+
+    public float getCustorota() {
+        return custorota;
+    }
+
+    public float getCustosadicionais() {
+        return custosadicionais;
+    }
+
 }

@@ -77,8 +77,15 @@ public class Frota {
     }
     public boolean incluirrota(String placa,Rota rota){
         if(rota!=null){
-            listaveiculos.find(placa).addRota(rota);
-            return true;
+            if(rota.getDistanciatotal()<listaveiculos.find(placa).calcularAutonomia()){
+                listaveiculos.find(placa).addRota(rota);
+                return true;
+            }
+            else{
+                listaveiculos.find(placa).reabastecer();
+                listaveiculos.find(placa).addRota(rota);
+                return true;
+            }
         }
         return false;
     }
@@ -88,10 +95,10 @@ public class Frota {
 
     public String imprimirrelatorio (String placa){
         Veiculo veiculo = this.listaveiculos.find(placa);
-        float total = veiculo.calcularCustos() + veiculo.calcularSeguro() + veiculo.calcularIPVA();
-        return "IPVA: " + veiculo.calcularIPVA() + "\n Seguro: "
-                + veiculo.calcularSeguro() + "\n Outros Custos: "
-                + veiculo.calcularCustos() + "\n Total: " + total;
+        return "\nIPVA: " + veiculo.calcularIPVA() + "\nSeguro: "
+                + veiculo.calcularSeguro() + "\nCusto Manutenção: "+veiculo.getCustosadicionais()+
+                "\nCusto das Rotas: "+ veiculo.getCustorota()+"\nOutros Custos: "
+                + veiculo.calcularCustos() + "\nTotal: " + veiculo.calcularCustosGerais();
 
     }
     public ArrayList<Veiculo> quantidadeRotas(){
