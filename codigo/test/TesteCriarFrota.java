@@ -1,16 +1,19 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TesteCriarFrota {
     Frota frota1;
     Carro carro1;
     Rota rota1,rota2;
+    //adicionar teste carregar, salvar
     @BeforeEach
     public void criarFrota(){
         frota1 = new Frota("frotinha");
-        carro1 = new Carro("PLM1234",2,20000);
+        carro1 = new Carro("PLM1234",20000,Combustivel.GASOLINA);
         rota1 = new Rota("0/0/0", 150);
         rota2 = new Rota("0/0/0", 80);
     }
@@ -20,16 +23,52 @@ public class TesteCriarFrota {
         frota1.incluirveiculo(carro1);
         assertEquals(1, frota1.getListaveiculos().size());
     }
+
     @Test
-    public void testarIncluirRota(){
+    public void testarIncluirRotaFalse(){
         frota1.incluirveiculo(carro1);
         assertFalse(frota1.incluirrota("PLM1234", rota1));
+
+    }
+
+    @Test
+    public void testarIncluirRotaTrue(){
+        frota1.incluirveiculo(carro1);
         assertTrue(frota1.incluirrota("PLM1234", rota2));
     }
+
     @Test
     public void testarLocalizarVeiculo(){
         frota1.incluirveiculo(carro1);
         assertEquals(carro1,frota1.localizarveiculo("PLM1234"));
+    }
+
+    @Test
+    public void testarCarregarVeiculo() throws FileNotFoundException {
+        frota1.carregar("./Teste.txt");
+    }
+
+    @Test
+    public void testarSalvarVeiculo() throws IOException {
+        frota1.salvar("./Write.txt");
+    }
+
+    @Test
+    public void testarQuantidadeRotas(){
+        Carro carro2 = new Carro("a", 20000, Combustivel.GASOLINA);
+        Carro carro3 = new Carro("e", 20000, Combustivel.GASOLINA);
+        Carro carro4 = new Carro("i", 20000, Combustivel.GASOLINA);
+        frota1.incluirveiculo(carro2);
+        frota1.incluirveiculo(carro3);
+        frota1.incluirveiculo(carro4);
+        carro1.addRota(rota1);
+        carro1.addRota(rota1);
+        carro1.addRota(rota1);
+        carro1.addRota(rota1);
+        carro2.addRota(rota1);
+        carro2.addRota(rota1);
+        assertEquals(3,frota1.quantidadeRotas().size());
+//        assertEquals(4,frota1.quantidadeRotas().get(indexOf(carro1)).getListarotas());
     }
 
 }
