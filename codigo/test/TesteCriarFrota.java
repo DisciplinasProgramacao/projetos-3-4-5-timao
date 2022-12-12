@@ -9,9 +9,9 @@ public class TesteCriarFrota {
     Frota frota1;
     Carro carro1;
     Rota rota1,rota2;
-    //adicionar teste carregar, salvar
+
     @BeforeEach
-    public void criarFrota(){
+    public void criarFrota() throws ExcecaoCombustivelInvalido {
         frota1 = new Frota("frotinha");
         carro1 = new Carro("PLM1234",20000,Combustivel.GASOLINA);
         rota1 = new Rota("0/0/0", 150);
@@ -44,17 +44,17 @@ public class TesteCriarFrota {
     }
 
     @Test
-    public void testarCarregarVeiculo() throws FileNotFoundException {
+    public void testarCarregarVeiculo() throws FileNotFoundException, ExcecaoCombustivelInvalido, ExcecaoCarregar {
         frota1.carregar("./Teste.txt");
     }
 
     @Test
     public void testarSalvarVeiculo() throws IOException {
-        frota1.salvar("./Write.txt");
+        frota1.salvar("./Salvar.txt");
     }
 
     @Test
-    public void testarQuantidadeRotas(){
+    public void testarQuantidadeRotas() throws ExcecaoCombustivelInvalido {
         Carro carro2 = new Carro("a", 20000, Combustivel.GASOLINA);
         Carro carro3 = new Carro("e", 20000, Combustivel.GASOLINA);
         Carro carro4 = new Carro("i", 20000, Combustivel.GASOLINA);
