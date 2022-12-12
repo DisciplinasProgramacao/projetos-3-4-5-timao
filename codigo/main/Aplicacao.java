@@ -75,10 +75,6 @@ public class Aplicacao {
                             System.out.println("Arquivo Criado!\n");
                             break;
                         case 3:
-                            System.out.println("\nPlacas existentes:");
-                            for(Veiculo veiculo:listadefrotas.find(nomefrota).getListaveiculos().allElements(new Veiculo[listadefrotas.find(nomefrota).getListaveiculos().size()])){
-                                System.out.println(veiculo.getTipoveiculo()+": "+veiculo.getPlaca());
-                            }
                             System.out.println("\nPlaca do Veículo:");
                             String placa = sc.next();
                             System.out.println("\nValor de venda do veículo:");
