@@ -2,20 +2,29 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.Integer.MIN_VALUE;
 
-public class Frota {
+public class Frota implements Observer {
     private String nomefrota;
     private ABB<Veiculo> listaveiculos;
+
+
     Frota(String nome){
         this.nomefrota = nome;
         this.listaveiculos = new ABB<Veiculo>();
     }
-    public void carregar(String nomeArquivo) throws FileNotFoundException {
+    @Override
+    public void update() {
+        Veiculo[] arrayveiculos = this.listaveiculos.allElements(new Veiculo[this.listaveiculos.size()]);
+        ArrayList<Veiculo> lista = new ArrayList<>(Arrays.asList(arrayveiculos));
+        if (lista.size()>3){
+            this.quantidadeRotas();
+        }
+    }
+    public void carregar(String nomeArquivo) throws FileNotFoundException, ExcecaoCombustivelInvalido, ExcecaoCarregar {
         String tipoveiculo;
         String placa;
         String combustivel;
@@ -28,18 +37,24 @@ public class Frota {
             placa = detalhes[1];
             valordevenda = Float.parseFloat(detalhes[2]);
             combustivel = detalhes[3];
-            if(tipoveiculo.equals("carro")){
-                this.listaveiculos.add(placa,new Carro(placa,valordevenda,Combustivel.valueOf(combustivel)));
+            switch(tipoveiculo){
+                case "carro":
+                    this.listaveiculos.add(placa,new Carro(placa,valordevenda,Combustivel.valueOf(combustivel)));
+                    break;
+                case "van":
+                    this.listaveiculos.add(placa,new Van(placa,valordevenda,Combustivel.valueOf(combustivel)));
+                    break;
+                case "furgao":
+                    this.listaveiculos.add(placa,new Furgao(placa,valordevenda,Combustivel.valueOf(combustivel)));
+                    break;
+                case "caminhao":
+                    this.listaveiculos.add(placa,new Caminhao(placa,valordevenda,Combustivel.valueOf(combustivel)));
+                    break;
+                default:
+                    throw new ExcecaoCarregar(tipoveiculo);
+
             }
-            if(tipoveiculo.equals("van")){
-                this.listaveiculos.add(placa,new Van(placa,valordevenda,Combustivel.valueOf(combustivel)));
-            }
-            if(tipoveiculo.equals("furgao")){
-                this.listaveiculos.add(placa,new Furgao(placa,valordevenda,Combustivel.valueOf(combustivel)));
-            }
-            else{
-                this.listaveiculos.add(placa,new Caminhao(placa,valordevenda,Combustivel.valueOf(combustivel)));
-            }
+
         }
     }
 
@@ -74,6 +89,7 @@ public class Frota {
 
     public void incluirveiculo(Veiculo veiculo){
         this.listaveiculos.add(veiculo.getPlaca(),veiculo);
+        veiculo.assinar(this);
     }
     public boolean incluirrota(String placa,Rota rota){
         if(rota!=null){
@@ -102,9 +118,13 @@ public class Frota {
 
     }
     public ArrayList<Veiculo> quantidadeRotas(){
+
+
         Veiculo[] arrayveiculos = this.listaveiculos.allElements(new Veiculo[this.listaveiculos.size()]);
         ArrayList<Veiculo> lista = new ArrayList<>(Arrays.asList(arrayveiculos));
         ArrayList<Veiculo> result = new ArrayList<>();
+
+
         int temp = MIN_VALUE;
         int temp2=0;
         int i,j;
@@ -146,19 +166,18 @@ public class Frota {
 
     public ArrayList<Rota> buscaRotas(String data){
         Veiculo[] arrayveiculos = this.listaveiculos.allElements(new Veiculo[this.listaveiculos.size()]);
-        ArrayList<Rota> result = new ArrayList<>();
+        ArrayList<Rota> result = null;
         for(Veiculo veiculo:arrayveiculos){
-            for(Rota rota:veiculo.getListarotas()){
-                if(rota.getData().equals(data)){
-                    result.add(rota);
-                }
-            }
+            result = (ArrayList<Rota>) veiculo.getListarotas().stream().filter(r -> r.getData().equals(data)).collect(Collectors.toList());
         }
         return result;
     }
 
     public ABB<Veiculo> getListaveiculos() {
         return listaveiculos;
+    }
+    public String getNomefrota() {
+        return nomefrota;
     }
 
 }

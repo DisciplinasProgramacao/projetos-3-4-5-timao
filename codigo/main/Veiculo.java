@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public abstract class Veiculo {
+
+public abstract class Veiculo implements Subject {
     private ArrayList<Rota> listarotas;
+
+    private ArrayList<Combustivel> listacombustivelvalido;
     private final String placa;
     private float kmplitro;
     private float valordevenda;
@@ -16,9 +20,9 @@ public abstract class Veiculo {
 
     private float custorota;
 
+    private ArrayList<Observer> observadores = new ArrayList<Observer>();
 
-
-    Veiculo(String placa, float valordevenda, float pctseguro, float pctipva, float capacidade, String tipoveiculo, Combustivel combustivel){
+    Veiculo(String placa, float valordevenda, float pctseguro, float pctipva, float capacidade, String tipoveiculo, Combustivel combustivel, ArrayList<Combustivel> listacombustivel) throws ExcecaoCombustivelInvalido{
         this.listarotas = new ArrayList<Rota>();
         this.placa=placa;
         this.valordevenda=valordevenda;
@@ -30,6 +34,31 @@ public abstract class Veiculo {
         this.combustivel = combustivel;
         this.kmplitro= combustivel.getKmlitro();
         this.autonomia=calcularAutonomia();
+        this.listacombustivelvalido = new ArrayList<Combustivel>(listacombustivel);
+        if(!listacombustivelvalido.contains(combustivel)){
+            throw new ExcecaoCombustivelInvalido(combustivel);
+        }
+
+    }
+
+
+    @Override
+    public void assinar(Observer frota) {
+        observadores.add(frota);
+    }
+
+    @Override
+    public void desistir(Observer frota) {
+        observadores.remove(frota);
+    }
+
+    @Override
+    public void notificar() {
+
+        for (Observer ob: observadores){
+            ob.update();
+        }
+
     }
 
     public void reabastecer(){
@@ -63,6 +92,7 @@ public abstract class Veiculo {
     public void addRota(Rota rota){
         calcularCustoRota(rota);
         listarotas.add(rota);
+        notificar();
     }
 
     public float calcularTotalKm(){

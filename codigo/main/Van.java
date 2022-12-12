@@ -1,4 +1,9 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Van extends Veiculo{
+
+    private static final ArrayList<Combustivel> LISTACOMBUSTIVEL = new ArrayList<Combustivel>(Arrays.asList(Combustivel.GASOLINA,Combustivel.DIESEL));
     private static final float CAPACIDADE = 60;
     private static final float PCT_SEGURO = 0.03f;
     private static final float PCT_IPVA = 0.03f;
@@ -7,8 +12,8 @@ public class Van extends Veiculo{
 
 
 
-    public Van (String placa, float valordevenda, Combustivel combustivel){
-        super(placa, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE,"van", combustivel);
+    public Van (String placa, float valordevenda, Combustivel combustivel) throws ExcecaoCombustivelInvalido{
+        super(placa, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE,"van", combustivel,LISTACOMBUSTIVEL);
     }
 
     public float calcularSeguro() {

@@ -1,5 +1,10 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Caminhao extends Veiculo{
 
+
+    private static final ArrayList<Combustivel> LISTACOMBUSTIVEL = new ArrayList<Combustivel>(Arrays.asList(Combustivel.DIESEL));
     private static final float CAPACIDADE = 250;
     private static final float PCT_SEGURO = 0.02f;
     private static final float PCT_IPVA = 0.01f;
@@ -10,8 +15,8 @@ public class Caminhao extends Veiculo{
 
 
 
-    public Caminhao (String placa, float valordevenda,Combustivel combustivel){
-        super(placa, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE, "caminhao",combustivel);
+    public Caminhao (String placa, float valordevenda,Combustivel combustivel) throws ExcecaoCombustivelInvalido{
+        super(placa, valordevenda, PCT_SEGURO, PCT_IPVA, CAPACIDADE, "caminhao",combustivel,LISTACOMBUSTIVEL);
     }
 
     public float calcularSeguro() {
