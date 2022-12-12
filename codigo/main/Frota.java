@@ -75,16 +75,14 @@ public class Frota implements Observer {
     }
 
     public float quilometragemMediaRotas(){
-        float total=0;
-        float count=0;
+        double count=0;
         Veiculo[] arrayveiculos = this.listaveiculos.allElements(new Veiculo[this.listaveiculos.size()]);
+        double mediatotal=0;
         for(Veiculo veiculo:arrayveiculos){
-            for(Rota rota:veiculo.getListarotas()){
-                total+=rota.getDistanciatotal();
-                count++;
-            }
+            mediatotal += veiculo.getListarotas().stream().mapToDouble(r -> r.getDistanciatotal()).sum();
+            count+=veiculo.getListarotas().size();
         }
-        return total/count;
+        return (float) (mediatotal/count);
     }
 
     public void incluirveiculo(Veiculo veiculo){

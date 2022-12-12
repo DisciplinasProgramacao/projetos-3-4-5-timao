@@ -57,7 +57,7 @@ public class Aplicacao {
                             "6 - Imprimir um relatorio do veiculo com seus gastos até agora\n" +
                             "7 - Quilometragem média das rotas\n" +
                             "8 - Os 3 veículos com mais rotas\n" +
-                            "9 - Lista descrescente de custos de cada veículo\n" +
+                            "9 - Lista em ordem descrescente de custos de cada veículo\n" +
                             "10 - Buscar rota pela data\n" +
                             "11 - Adicionar custo de manutenção em um veiculo\n" +
                             "------------- Digite -1 para voltar ----------------\n");
@@ -77,7 +77,7 @@ public class Aplicacao {
                         case 3:
                             System.out.println("\nPlacas existentes:");
                             for(Veiculo veiculo:listadefrotas.find(nomefrota).getListaveiculos().allElements(new Veiculo[listadefrotas.find(nomefrota).getListaveiculos().size()])){
-                                System.out.println(veiculo.getPlaca());
+                                System.out.println(veiculo.getTipoveiculo()+": "+veiculo.getPlaca());
                             }
                             System.out.println("\nPlaca do Veículo:");
                             String placa = sc.next();
@@ -130,7 +130,7 @@ public class Aplicacao {
                                 float distancia = sc.nextFloat();
                                 System.out.println("\nPlacas existentes:");
                                 for(Veiculo veiculo:listadefrotas.find(nomefrota).getListaveiculos().allElements(new Veiculo[listadefrotas.find(nomefrota).getListaveiculos().size()])){
-                                    System.out.println(veiculo.getPlaca());
+                                    System.out.println(veiculo.getTipoveiculo()+": "+veiculo.getPlaca());
                                 }
                                 System.out.println("\nPlaca do veiculo: ");
                                 placa = sc.next();
@@ -151,7 +151,7 @@ public class Aplicacao {
                         case 5:
                             System.out.println("\nPlacas existentes:");
                             for(Veiculo veiculo:listadefrotas.find(nomefrota).getListaveiculos().allElements(new Veiculo[listadefrotas.find(nomefrota).getListaveiculos().size()])){
-                                System.out.println(veiculo.getPlaca());
+                                System.out.println(veiculo.getTipoveiculo()+": "+veiculo.getPlaca());
                             }
                             System.out.println("\nPlaca do veículo: ");
                             placa = sc.next();
@@ -165,7 +165,7 @@ public class Aplicacao {
                         case 6:
                             System.out.println("\nPlacas existentes:");
                             for(Veiculo veiculo:listadefrotas.find(nomefrota).getListaveiculos().allElements(new Veiculo[listadefrotas.find(nomefrota).getListaveiculos().size()])){
-                                System.out.println(veiculo.getPlaca());
+                                System.out.println(veiculo.getTipoveiculo()+": "+veiculo.getPlaca());
                             }
                             System.out.println("\nPlaca do Veiculo: ");
                             placa = sc.next();
@@ -177,13 +177,19 @@ public class Aplicacao {
                             }
                             break;
                         case 7:
-                            System.out.println(listadefrotas.find(nomefrota).quilometragemMediaRotas());
+                            System.out.println("\nQuilometragem média rotas: "+listadefrotas.find(nomefrota).quilometragemMediaRotas());
                             break;
                         case 8:
-                            System.out.println(listadefrotas.find(nomefrota).quantidadeRotas());
+                            System.out.println("\nLista dos 3 veiculos com mais rotas: ");
+                            for(Veiculo veiculo:listadefrotas.find(nomefrota).quantidadeRotas()){
+                                System.out.println(veiculo+": "+veiculo.getListarotas().size());
+                            }
                             break;
                         case 9:
-                            System.out.println(listadefrotas.find(nomefrota).listaPorCusto());
+                            System.out.print("\nLista em ordem decrescente dos custos por carro: ");
+                            for(Veiculo veiculo:listadefrotas.find(nomefrota).listaPorCusto()){
+                                System.out.println(veiculo+": "+veiculo.calcularCustosGerais());
+                            }
                             break;
                         case 10:
                             System.out.println("\nData da rota:");
@@ -199,7 +205,7 @@ public class Aplicacao {
                         case 11:
                             System.out.println("\nPlacas existentes:");
                             for(Veiculo veiculo:listadefrotas.find(nomefrota).getListaveiculos().allElements(new Veiculo[listadefrotas.find(nomefrota).getListaveiculos().size()])){
-                                System.out.println(veiculo.getPlaca());
+                                System.out.println(veiculo.getTipoveiculo()+": "+veiculo.getPlaca());
                             }
                             System.out.println("\nPlaca do veiculo: ");
                             String placa2 = sc.next();
