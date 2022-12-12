@@ -10,6 +10,7 @@ public class Aplicacao {
         ABB<Frota> listadefrotas = new ABB<Frota>();
         String nomefrota = null;
         Scanner sc = new Scanner(System.in);
+        int valor;
         int caso = -3;
         int caso2 = -3;
         String datePattern = "\\d{1,2}/\\d{1,2}/\\d{4}";
@@ -84,10 +85,11 @@ public class Aplicacao {
                             switch (selectVeiculo) {
                                 case 1:
                                     System.out.println("\nSelecione o tipo de Combustivel: " + "\n1 - Gasolina" + "\n2 - Etanol");
-                                    if (sc.nextInt() == 1) {
+                                    valor = sc.nextInt();
+                                    if (valor == 1) {
                                         listadefrotas.find(nomefrota).incluirveiculo(new Carro(placa, valordevenda, Combustivel.GASOLINA));
                                     }
-                                    if (sc.nextInt() == 2){
+                                    if (valor == 2){
                                         listadefrotas.find(nomefrota).incluirveiculo(new Carro(placa, valordevenda, Combustivel.ETANOL));
                                     }
                                     else{
@@ -96,10 +98,11 @@ public class Aplicacao {
                                     break;
                                 case 2:
                                     System.out.println("\nSelecione o tipo de Combustivel: " + "\n1 - Gasolina" + "\n2 - Diesel");
-                                    if (sc.nextInt() == 1) {
+                                    valor = sc.nextInt();
+                                    if (valor == 1) {
                                         listadefrotas.find(nomefrota).incluirveiculo(new Van(placa, valordevenda, Combustivel.GASOLINA));
                                     }
-                                    if (sc.nextInt() == 2) {
+                                    if (valor == 2) {
                                         listadefrotas.find(nomefrota).incluirveiculo(new Van(placa, valordevenda, Combustivel.DIESEL));
                                     }
                                     else{
