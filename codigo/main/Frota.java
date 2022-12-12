@@ -164,9 +164,12 @@ public class Frota implements Observer {
 
     public ArrayList<Rota> buscaRotas(String data){
         Veiculo[] arrayveiculos = this.listaveiculos.allElements(new Veiculo[this.listaveiculos.size()]);
-        ArrayList<Rota> result = null;
+        ArrayList<Rota> result = new ArrayList<Rota>();
         for(Veiculo veiculo:arrayveiculos){
             result = (ArrayList<Rota>) veiculo.getListarotas().stream().filter(r -> r.getData().equals(data)).collect(Collectors.toList());
+        }
+        if(result.size()==0){
+            return null;
         }
         return result;
     }

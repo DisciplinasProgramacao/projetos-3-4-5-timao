@@ -42,7 +42,7 @@ public class Aplicacao {
                     }
                     break;
                 default:
-                    throw new RuntimeException("Número Inválido!");
+                    throw new RuntimeException("!");
             }
             TimeUnit.SECONDS.sleep(1);
             if(nomefrota!=null){
@@ -193,7 +193,7 @@ public class Aplicacao {
                         case 10:
                             System.out.println("\nData da rota:");
                             data = sc.next();
-                            if(listadefrotas.find(nomefrota).buscaRotas(data).size()>0){
+                            if(listadefrotas.find(nomefrota).buscaRotas(data)!=null){
                                 System.out.println(listadefrotas.find(nomefrota).buscaRotas(data).toString());
                                 System.out.println("Rota Localizada!\n");
                             }
