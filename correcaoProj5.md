@@ -8,7 +8,7 @@
 Não consegui criar carro. Dá exceção ao selecionar gasolina. Assim, não consigo testar o app propriamente.
 Veículos com mais rotas, mais custos: mostra endereço do objeto.
 Rotas sem autonomia sendo aceitas (while incorreto com reabastecimento infinito)
-Estrutura do osberver correta. Implementação ruim: 'quantidadeRotas' não devia ser público; fazer 2 for para localizar e trocar o menor é muito ruim (stream, colecoes etc)
+Estrutura do osberver correta. Implementação ruim: 'maxQuantidadeRotas' não devia ser público; fazer 2 for para localizar e trocar o menor é muito ruim (stream, colecoes etc)
 **ATENÇÃO**: vocês estão entendendo errado o conceito do uso de exceções. A classe deve, claro, lançar exceção para sinalizar quebra de condições. O programa, porém, não pode morrer com isso: ele precisa tratar a exceção.
 	
 ## Correção

@@ -4,37 +4,41 @@ public class ABB<T> {
 
     private TreeMap<String, T> data;
 
-    public ABB(){
+    public ABB() {
         this.data = new TreeMap<>();
     }
 
-    public T find(String key){
-        return this.data.get(key);
+    public T find(String key) {
+        if ((this.data.get(key)) == null) {
+            throw new RuntimeException("Objeto não existe!");
+        } else {
+            return this.data.get(key);
+        }
     }
 
-    public boolean add(String key, T newElement){
+    public boolean add(String key, T newElement) {
         boolean result = false;
-        if(!this.data.containsKey(key)){
+        if (!this.data.containsKey(key)) {
             this.data.put(key, newElement);
             result = true;
         }
         return result;
     }
 
-    public boolean remove(String key){
+    public boolean remove(String key) {
         boolean result = false;
-        if(!this.data.containsKey(key)){
+        if (!this.data.containsKey(key)) {
             this.data.remove(key);
             result = true;
         }
         return result;
     }
-    
-    public int size(){
+
+    public int size() {
         return this.data.size();
     }
 
-    public T[] allElements(T[] array){
+    public T[] allElements(T[] array) {
         T[] allData = this.data.values().toArray(array);
         return allData;
     }
